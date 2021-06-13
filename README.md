@@ -83,8 +83,47 @@ For testing debugger add a breakpoint on the return line of **./config/views.py*
 
 Now start the debugger by selecting **Run > Start Debugging**. Debugger running in VSCode and you can inspect how your dockerized app works.
 
+## Setup a basic workflow using GitHub Actions
+
+Add to the **requirements.txt** file the following line to check with linter:
+
+    flake8>=3.9.2,<3.10
+
+Create a new file at **.github/workflows/cd.yml** and fill it with the following contents:
+
+    ---
+    name: Code checks
+
+    on:
+    push:
+        branches: [ master ]
+    pull_request:
+        branches: [ master ]
+
+    jobs:
+    test:
+        name: Test
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@v2
+        - name: Test
+            run: docker-compose run --rm . sh -c "python manage.py test"
+
+    lint:
+        name: Lint
+        runs-on: ubuntu-20.04
+        steps:
+        - uses: actions/checkout@v2
+        - name: Lint
+            run: docker-compose run --rm . sh -c "flake8"
+
+
+[![Build Status](https://github.com/Vostbur/vscode-django-docker/actions/workflows/cd.yml/badge.svg&branch=master)](https://github.com/Vostbur/vscode-django-docker/actions/workflows/cd.yml)
+
 ----
 ### Links:
 
 - [1] [DEBUGGING A DOCKERIZED DJANGO APP WITH VSCODE](https://londonappdeveloper.com/debugging-a-dockerized-django-app-with-vscode/)
 - [2] [Python in a container](https://code.visualstudio.com/docs/containers/quickstart-python)
+- [3] [GitHub Actions для автоматической проверки кода](https://www.youtube.com/watch?v=NijFSs03Pd4)
+- [4] [HOW TO USE GITHUB ACTIONS](https://londonappdeveloper.com/how-to-use-github-actions/)
