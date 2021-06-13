@@ -118,7 +118,7 @@ Create a new file at **.github/workflows/cd.yml** and fill it with the following
             run: docker-compose run --rm . sh -c "flake8"
 
 
-[![Build Status](https://github.com/Vostbur/vscode-django-docker/actions/workflows/cd.yml/badge.svg&branch=master)](https://github.com/Vostbur/vscode-django-docker/actions/workflows/cd.yml)
+[![Build Status](https://github.com/Vostbur/vscode-django-docker/actions/workflows/cd.yml/badge.svg?branch=master)](https://github.com/Vostbur/vscode-django-docker/actions/workflows/cd.yml)
 
 ----
 ### Links:
